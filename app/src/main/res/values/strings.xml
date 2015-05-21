@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Calculator</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="dob">Date of Birth</string>
+    <string name="address">Address</string>
+    <string name="color">Favorite Color</string>
+    <string name="height">Height</string>
+    <string name="picture">Please Provide A Current Picture</string>
+    <string name="aboutYourself">Tell us a little about yourself</string>
+    <string name="faveColor">What\'s your favorite color?</string>
+
+
+    <string name="zero">0.0</string>
+    <string name="clear">C</string>
+    <string name="dividedBy">÷</string>
+    <string name="times">x</string>
+    <string name="delete">⌫</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="plus">+</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="parenteses">()</string>
+    <string name="zero2">0</string>
+    <string name="point">.</string>
+    <string name="negation">+/-</string>
+    <string name="equals">=</string>
+    <string name="minus">-</string>
+    <string name="percent">%</string>
+    <string name="openParen">(</string>
+    <string name="closeParen">)</string>
+    <string name="ans">Ans</string>
+    <string name="exp">EXP</string>
+    <string name="power">^</string>
+    <string name="e">e</string>
+    <string name="tan">tan</string>
+    <string name="squareroot">√</string>
+    <string name="pi">π</string>
+    <string name="cosine">cos</string>
+    <string name="log">log</string>
+    <string name="inv">inv</string>
+    <string name="sin">sin</string>
+    <string name="ln">ln</string>
+    <string name="Deg">Deg</string>
+    <string name="permutation">x!</string>
+    <string name="help">help</string>
+    <string name="tip">tip</string>
+    <string name="modulo">%</string>
+
+
+
+
+</resources>
