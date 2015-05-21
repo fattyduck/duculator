@@ -210,7 +210,7 @@ public class MainActivity extends Activity {
                 } else {
                     if (isNum(express.charAt(express.length() - 1))) {
                         express += ".";
-                    } else {
+                    } else if(isOp(express.charAt(express.length() - 1))) {
                         express += "0.";
                     }
 
