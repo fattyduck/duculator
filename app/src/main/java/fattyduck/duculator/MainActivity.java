@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import java.math.BigDecimal;
 import java.util.Locale;
+import java.lang.*;
 
 
 public class MainActivity extends Activity {
@@ -43,12 +44,13 @@ public class MainActivity extends Activity {
             tts.shutdown();
         }
     }
-
+    // group buttons by number so that we can refer to them as parameters later on 
     public boolean isNum(char c){
 
         return c=='0'||c=='1'||c=='2'||c=='3'||c=='4'||c=='5'||c=='6'||c=='7'||c=='8'||c=='9';
 
     }
+    //group buttons by operand so that we can refer to them as parameters later on
     public boolean isOp(char c){
         return c == '+'||c == '-'||c == '*'||c == '/'||c == '%'||c == '^';
     }
@@ -83,6 +85,7 @@ public class MainActivity extends Activity {
         Button tip = (Button)findViewById(R.id.tip);
         String euler = String.valueOf(Math.E);
 
+        //Button pressed, relevant text added to textview
         switch (v.getId()) {
             case R.id.rad:
                 express += "RAD(";
@@ -149,11 +152,14 @@ public class MainActivity extends Activity {
                 express += "E";
                 break;
             case R.id.power:
+                //If the ^ button is pressed without a number preceding it, it will be evaluated as 1^numberEntered
                 if (express.length() == 0) {
                     express += "1^";
+                    //"^" will be added to express String if the character preceding it isn't an operand
                 } else {
                     if (!isOp(express.charAt(express.length() - 1))) {
                         express += "^";
+                        //If ^ is preceded by an operand, that operand will be replaced with ^
                     } else {
                         express = express.substring(0, express.length() - 1) + "^";
                     }
@@ -161,9 +167,12 @@ public class MainActivity extends Activity {
                 }
                 break;
             case R.id.div:
+                //If something is in the textView,
                 if (express.length() > 0) {
+                    //if that something isn't an operand, add / to the string
                     if (!isOp(express.charAt(express.length() - 1))) {
                         express += "/";
+                        //If that something IS and operand, it'll be replace by /
                     } else {
                         express = express.substring(0, express.length() - 1) + "/";
                     }
@@ -171,11 +180,14 @@ public class MainActivity extends Activity {
                 }
                 break;
             case R.id.times:
+                //If * isn't preceded by anything, it will be avaluated as 1*enteredNumber
                 if (express.length() == 0) {
                     express += "1*";
                 } else {
+                    //if * is preceded by a non-operand, * is added to string
                     if (!isOp(express.charAt(express.length() - 1))) {
                         express += "*";
+                        //If it IS preceded by an operand, that operand will be replaced by *
                     } else {
                         express = express.substring(0, express.length() - 1) + "*";
                     }
@@ -184,8 +196,10 @@ public class MainActivity extends Activity {
                 break;
             case R.id.minus:
                 if (express.length() > 0) {
+                    //if - is preceded by non-operand, add -
                     if (!isOp(express.charAt(express.length() - 1))) {
                         express += "-";
+                        //if - is preceded by operand, operand will be replaced by -
                     } else {
                         express = express.substring(0, express.length() - 1) + "-";
                     }
@@ -193,6 +207,7 @@ public class MainActivity extends Activity {
                 }
                 break;
             case R.id.plus:
+                //Logic here is the same as minus
                 if (express.length() == 0) {
                     express += "0+";
                 } else {
@@ -205,15 +220,22 @@ public class MainActivity extends Activity {
                 }
                 break;
             case R.id.point:
+                // . entered without a whole number will be entered as 0.
                 if (express.length() == 0) {
                     express += "0.";
                 } else {
-                    if (isNum(express.charAt(express.length() - 1))) {
-                        express += ".";
-                    } else if(isOp(express.charAt(express.length() - 1))) {
-                        express += "0.";
+                    //If express already has a decimal, don't add another
+                    if (express.contains(".")){
+                    express += "";
                     }
-
+                    //If . is preceded by a number that doesn't have a decimal, add .
+                    if (isNum(express.charAt(express.length() - 1)) && (!(express.contains(".")))) {
+                        express += ".";
+                    }
+                    //If . is preceded by a number, . will be added to string
+                    if (isNum(express.charAt(express.length() - 1)) && (express.contains("."))) {
+                        express += "";
+                    }
                 }
                 break;
             case R.id.e:
@@ -223,6 +245,7 @@ public class MainActivity extends Activity {
             case R.id.perm:
                 express += "!";
                 break;
+            //Change button text on the following buttons when inv button is pressed
             case R.id.inv:
                 if (cos.getText().toString().equals("cos")) {
                     sin.setText("asin");
@@ -242,6 +265,7 @@ public class MainActivity extends Activity {
                     tip.setText("tip");
                 }
                 break;
+            //What to write to textView based on button's text
             case R.id.sin:
                 if (sin.getText().toString().equals("sin")) {
                     express += "SIN(";
@@ -272,11 +296,11 @@ public class MainActivity extends Activity {
                 break;
             case R.id.log:
                 if (log.getText().toString().equals("log")) {
-                    express += "LOG10(";
-                } else {
-                    express += "10^";
-                }
-                break;
+                express += "LOG10(";
+            } else {
+                express += "10^";
+            }
+            break;
             case R.id.sqrt:
                 if (sqrt.getText().toString().equals("sqrt")) {
                     express += "SQRT(";
@@ -289,22 +313,28 @@ public class MainActivity extends Activity {
             case R.id.tip:
                 if (tip.getText().toString().equals("tip")) {
                     if (express.length() > 0) {
+                        //if a value is present when the tip button is pressed, *0.20 is added to the string
                         if (isNum(express.charAt(express.length() - 1))) {
                             express += "*0.20";
+                            //if there is no number present when tip button is pressed, 0.20* is added to textView anticipating an amount
                         } else {
                             express += "0.20*";
                         }
+                        //if there is no number present when tip button is pressed, 0.20* is added to textView anticipating an amount
                     } else {
                         express += "0.20*";
                     }
-
+                    //If inv+tip is pressed, total will be calculated (tip + bill)
                 } else if (tip.getText().toString().equals("total")) {
                     if (express.length() > 0) {
+                        //If inv+tip is preceded by a number, *1.20 is added to string
                         if (isNum(express.charAt(express.length() - 1))) {
                             express += "*1.20";
+                            //if not preceded by a number, 1.20* in added to textView, anticipating a bill amount
                         } else {
                             express += "1.20*";
                         }
+                        //if not preceded by a number, 1.20* in added to textView, anticipating a bill amount
                     } else {
                         express += "1.20*";
                     }
@@ -312,19 +342,19 @@ public class MainActivity extends Activity {
                 break;
         }
 
-
-
         panel.setText(express);
-
+        //When = is pressed,
         if(v.getId()==R.id.equals){
             try{
-
+                //and it is preceded by - or +, add 0 to string before =
                 if(express.charAt(express.length()-1)=='+'||express.charAt(express.length()-1)=='-'){
                     express+=0;
                 }
+                //if = pressed and is preceded by * or /, add 1 to string before =
                 if(express.charAt(express.length()-1)=='*'||express.charAt(express.length()-1)=='/'||express.charAt(express.length()-1)=='^'||express.charAt(express.length()-1)=='%'){
                     express+=1;
                 }
+                //If there are more open parens then closed, add the difference missing parens 
                 if(numOfOpenParen(express)>numOfCloseParen(express)){
                     int missing = numOfOpenParen(express)-numOfCloseParen(express);
                     for(int i = 0; i<missing; i++){
@@ -332,7 +362,7 @@ public class MainActivity extends Activity {
                     }
                 }
                 Expression expression = new Expression(express);
-                results = expression.eval();
+                results = expression.eval(); //do math
                 answer = String.valueOf(results.doubleValue());
                 panel.setText(answer);
                 tts.speak(answer, TextToSpeech.QUEUE_FLUSH, null );
