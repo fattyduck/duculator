@@ -146,7 +146,9 @@ public class MainActivity extends Activity {
                 express += "PI";
                 break;
             case R.id.exp:
-                express += "E";
+                if(express.length()>0 && !isOp(express.charAt(express.length()-1))) {
+                    express += "*10^";
+                }
                 break;
             case R.id.power:
                 if (express.length() == 0) {
@@ -221,7 +223,7 @@ public class MainActivity extends Activity {
                 express += euler;
                 break;
             case R.id.perm:
-                express += "!";
+
                 break;
             case R.id.inv:
                 if (cos.getText().toString().equals("cos")) {
